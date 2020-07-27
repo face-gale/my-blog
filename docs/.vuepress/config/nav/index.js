@@ -5,6 +5,7 @@ module.exports = [
         text: '后端',
         items: [
             {text: 'java基础', link: '/md/java/java00/'},
+            {text: 'java知识点', link: '/md/api/'},
             {text: '框架', link: '/md/frame/'},
             {text: '微服务', link: '/md/micro/'},
         ]
@@ -17,7 +18,12 @@ module.exports = [
             { text: 'Kubernetes', link: '/md/kubernetes/' },
         ]
     },
-    {text: '前端', link: '/md/front/'},
+    {
+        text: '前端',
+        items: [
+            {text: '前端基础', link: '/md/front/base/'},
+        ]
+    },
     {text: '面试', link: '/md/interview/'},
     {   text: '能力提升',
         items: [
@@ -86,7 +92,7 @@ module.exports = [
             { text: 'Vuex', link: 'https://vuex.vuejs.org/zh/api/#vuex-store' },
         ]
     },
-    {text: 'Github', link: 'https://github.com/face-gale/myblog'},
+    {text: 'Github', link: 'https://github.com/face-gale/my-blog'},
     /*
     {
         text: 'Languages',
