@@ -1,9 +1,32 @@
 
 const interview = require('./interview/index')
 const micro = require('./micro/index')
+const java = require('./java/index')
+const base = require('./front/index')
 
 
 module.exports = {
+    "/md/c/": [
+        {
+            title: 'C 语言',
+            collapsable: false,
+            sidebarDepth: 2,
+            children: [
+                ['','C 语言基础'],
+            ]
+        }
+    ],
+    "/md/api/": [
+        {
+            title: 'JAVA 知识点',
+            collapsable: false,
+            sidebarDepth: 3,
+            children: [
+                ['', 'Java正则表达式基本用法'],
+                ['api01', '修改Git提交记录的用户名'],
+            ]
+        }
+    ],
     "/md/toap/JavaCodewars": [
         {
             title: 'Codewars JAVA编程题',
@@ -26,6 +49,7 @@ module.exports = {
     ],
     "/md/interview/": interview,
     "/md/micro/": micro,
+    "/md/front/base/": base,
     "/md/trace/": [
         {
             title: '随笔',
@@ -40,186 +64,7 @@ module.exports = {
             ]
         }
     ],
-    "/md/java/": [
-        {
-            title: 'Java 快速入门',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java00/', 'Java 概述'],
-                ['java00/java01', 'Java 对象和类'],
-                ['java00/java16', 'Java 方法'],
-                ['java00/java26', 'Java 包(package)'],
-                ['java00/java03', 'Java 基本数据类型'],
-                ['java00/data', 'Java 数据结构'],
-                ['java00/java04', 'Java 变量类型'],
-                ['java00/java05', 'Java 修饰符'],
-                ['java00/java06', 'Java 运算符'],
-                ['java00/java07', 'Java 循环结构'],
-                ['java00/java08', 'Java 分支结构'],
-                ['java00/java13', 'Java 数组'],
-                ['java00/iterator', 'Java Iterator迭代器'],
-            ]
-        },
-        {
-            title: 'Java面向对象编程',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java01/', '继承'],
-                ['java01/java01', '多态'],
-                ['java01/java01', '封装'],
-            ]
-        },
-        {
-            title: 'Java异常处理',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java02/', 'Java 异常处理'],
-            ]
-        },
-        {
-            title: 'Java注解',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java03/', 'Java 注解'],
-            ]
-        },
-        {
-            title: 'Java泛型',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java04/', 'Java 注解'],
-            ]
-        },
-        {
-            title: 'Java异常处理',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java05/', 'Java 正则表达式'],
-            ]
-        },
-        {
-            title: '函数式编程',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java06/', 'Lambda表达式'],
-                ['java06/java01', 'Stream流'],
-                ['java06/java02', '常用方法及操作'],
-                ['java06/java03', 'Stream流方法引用'],
-                ['java06/java04', '函数式接口'],
-                ['java06/java05', '函数式编程'],
-                ['java06/java06', '常用的函数式接口'],
-            ]
-        },
-        {
-            title: 'Java 接口',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java07/', 'Java 接口'],
-            ]
-        },
-        {
-            title: 'Java 内部类',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java08/', 'Java 内部类'],
-            ]
-        },
-        {
-            title: 'Java Scanner 类',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['java09/', 'Java Scanner 类'],
-            ]
-        },
-        {
-            title: 'Java IO',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['javaio/', 'IO概述'],
-                ['javaio/javaio01', 'Java File类'],
-                ['javaio/javaio02', 'Java 递归'],
-                ['javaio/javaio03', '字节流'],
-                ['javaio/javaio04', '字符流'],
-                ['javaio/javaio05', '缓冲流'],
-                ['javaio/javaio06', '转换流'],
-                ['javaio/javaio07', '序列化'],
-                ['javaio/javaio08', '打印流'],
-            ]
-        },
-        {
-            title: 'Java 网络编程',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['javaosi/', '网络编程入门'],
-                ['javaosi/javaosi01', 'TCP通信程序'],
-                ['javaosi/javaosi02', '文件上传案例'],
-                ['javaosi/javaosi03', '文件上传优化'],
-            ]
-        },
-        {
-            title: 'Java 反射',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['javareflect/', '概述'],
-                ['javareflect/javareflect01', 'Class对象功能'],
-                ['javareflect/javareflect02', '框架案例'],
-            ]
-        }
-
-    ],
-    "/javascript/": [
-        {
-            title: 'JavaScript',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/javascript/', '概述'],
-                ['/javascript/javascript01', 'ECMAScript(基本语法)'],
-                ['/javascript/javascript02', 'ECMAScript(基本对象)'],
-                ['/javascript/javascript03', 'DOM、事件 简单学习'],
-                ['/javascript/javascript04', 'BOM'],
-                ['/javascript/javascript05', 'DOM和事件监听机制'],
-            ]
-        }
-    ],
-    "/javathread/": [
-        {
-            title: 'Java 多线程',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/javathread/', '线程概述'],
-                ['/javathread/javathread01', '创建线程类'],
-                ['/javathread/javathread02', '线程相关概念'],
-                ['/javathread/javathread03', '线程池'],
-            ]
-        }
-    ],
-    "/bootstrap/": [
-        {
-            title: 'Bootstrap',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/bootstrap/', '概述'],
-                ['/bootstrap/bootstrap01', '响应式布局、样式和插件'],
-                ['/bootstrap/bootstrap02', '案例'],
-            ]
-        }
-    ],
+    "/md/java/": java,
     "/class/": [
         {
             title: '集合',
@@ -265,34 +110,6 @@ module.exports = {
             ]
         }
     ],
-    "/css/": [
-        {
-            title: 'CSS',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/css/', 'CSS2'],
-                ['/css/css01', 'CSS3(1)'],
-                ['/css/css02', 'CSS3(2)'],
-                ['/css/css03', 'CSS3(3)'],
-                ['/css/css04', 'CSS3(4)'],
-            ]
-        }
-    ],
-    /*"/md/java/": [
-        {
-            title: 'CSS',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/css/', 'CSS2'],
-                ['/css/css01', 'CSS3(1)'],
-                ['/css/css02', 'CSS3(2)'],
-                ['/css/css03', 'CSS3(3)'],
-                ['/css/css04', 'CSS3(4)'],
-            ]
-        }
-    ],*/
     "/md/docker/": [
         {
             title: 'Docker',
@@ -313,30 +130,6 @@ module.exports = {
                 ['docker11', 'Docker Compose部署Nexus'],
                 ['docker12', 'Docker Compose部署Harbor'],
                 ['docker13', 'Docker Compose网络设置'],
-            ]
-        }
-    ],
-    "/frontother/": [
-        {
-            title: '其他',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/frontother/templateuse', '利用前端模板'],
-                ['/frontother/latexkatex', 'KaTex/LaTex 用法'],
-            ]
-        }
-    ],
-    "/html/": [
-        {
-            title: 'HTML',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/html/', '概述'],
-                ['/html/html01', '标签学习'],
-                ['/html/html02', '旅游网站案例'],
-                ['/html/html03', '表单标签'],
             ]
         }
     ],
@@ -491,30 +284,6 @@ module.exports = {
                 ['/structure/structure24', '2-3查找树'],
                 ['/structure/structure25', '红黑树'],
                 ['/structure/structure26', 'B树'],
-            ]
-        }
-    ],
-    "/jquery/": [
-        {
-            title: 'Jquery',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/jquery/', '概述'],
-                ['/jquery/jquery01', 'Jquery选择器'],
-                ['/jquery/jquery02', 'Jquery DOM操作'],
-                ['/jquery/jquery03', 'JQuery 高级'],
-            ]
-        }
-    ],
-    "/Junit/": [
-        {
-            title: 'Junit',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['/Junit/', '简介'],
-                ['/Junit/Junit01', '起步'],
             ]
         }
     ],
@@ -740,16 +509,4 @@ module.exports = {
             ]
         }
     ],
-    "/vue/": [
-        {
-            title: '其他',
-            collapsable: false,
-            sidebarDepth: 3,
-            children: [
-                ['https://mrbird.cc/Vue-Learn-Note.html', 'Vue学习'],
-                ['/vue/vuepress', 'VuePress'],
-                ['/vue/vuepress01', 'VuePress安装Katex插件'],
-            ]
-        }
-    ]
 };
