@@ -36,6 +36,9 @@ module.exports = [
                     { text: 'JS编程题', link: '/md/toap/JSCodewars.html' },
                 ]
             },
+            { text: '数据结构', link: '/md/data/'},
+            { text: '计算机入门', link: '/md/introduction/'},
+            { text: '计算机网络', link: '/md/network/'},
         ]
     },
     // 开发工具

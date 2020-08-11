@@ -116,6 +116,8 @@ void 类型指定没有可用的值。它通常用于以下三种情况下：
 
 变量其实只不过是程序可操作的存储区的名称，类型决定了变量存储的大小和布局。
 
+变量被定义的时候就分配了空间。
+
 ### C 中的变量定义
 
 变量定义就是告诉编译器在何处创建变量的存储，以及如何创建变量的存储。
@@ -1119,6 +1121,149 @@ int main()
     }
  
     return 0;
+}
+```
+
+
+
+## C 字符串
+
+在 C 语言中，字符串实际上是使用 **null** 字符 '\0' 终止的一维字符数组。
+
+声明和初始化一个字符串
+
+```c
+char greeting[6] = {'H', 'e', 'l', 'l', 'o', '\0'};
+```
+
+等价
+
+```c
+char greeting[] = "Hello";
+```
+
+
+
+C 中有大量操作字符串的函数：
+
+| 序号 | 函数 & 目的                                                  |
+| :--- | :----------------------------------------------------------- |
+| 1    | **strcpy(s1, s2);** 复制字符串 s2 到字符串 s1。              |
+| 2    | **strcat(s1, s2);** 连接字符串 s2 到字符串 s1 的末尾。       |
+| 3    | **strlen(s1);** 返回字符串 s1 的长度。                       |
+| 4    | **strcmp(s1, s2);** 如果 s1 和 s2 是相同的，则返回 0；如果 s1<s2 则返回小于 0；如果 s1>s2 则返回大于 0。 |
+| 5    | **strchr(s1, ch);** 返回一个指针，指向字符串 s1 中字符 ch 的第一次出现的位置。 |
+| 6    | **strstr(s1, s2);** 返回一个指针，指向字符串 s1 中字符串 s2 的第一次出现的位置。 |
+
+实例
+
+```c
+#include <stdio.h>
+#include <string.h>
+ 
+int main ()
+{
+   char str1[12] = "Hello";
+   char str2[12] = "World";
+   char str3[12];
+   int  len ;
+ 
+   /* 复制 str1 到 str3 */
+   strcpy(str3, str1);
+   printf("strcpy( str3, str1) :  %s\n", str3 );
+ 
+   /* 连接 str1 和 str2 */
+   strcat( str1, str2);
+   printf("strcat( str1, str2):   %s\n", str1 );
+ 
+   /* 连接后，str1 的总长度 */
+   len = strlen(str1);
+   printf("strlen(str1) :  %d\n", len );
+ 
+   return 0;
+}
+```
+
+产生下列结果：
+
+```
+strcpy( str3, str1) :  Hello
+strcat( str1, str2):   HelloWorld
+strlen(str1) :  10
+```
+
+## C 指针
+
+指针就是内存地址。
+
+### 指针的定义c
+
+```c
+int *p;
+
+// p 为指针引用，即内存地址值
+// *p 指针解释引用，即对应内存的值
+```
+
+### 指针的偏移
+
+指针偏移的单位是 该指针类型所占的内存大小（sizeof（type））
+
+指针的偏移其实是地址值的偏移，可以理解位内存索引的偏移
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{	
+	int a[3] = { 2,7,8 };
+	int *p;
+	int j;
+	p = a;
+    // j = *p; *p = *p + 1;
+    // p++是指针的偏移，(*p)++是值的++
+	j = *p++; 
+	printf("a[0]=%d,j=%d,*p=%d\n", a[0], j, *p);
+    
+	j = p[0]++; 
+    // p[0] = 2;p[0] = p[0] + 1;
+	printf("a[0]=%d,j=%d,*p=%d\n", a[0], j, *p);
+	system("pause");
+}
+```
+
+
+
+```
+a[0]=2,j=2,*p=7
+a[0]=2,j=7,*p=8
+请按任意键继续. . .
+```
+
+
+
+### 指针与动态内存申请
+
+使用堆空间
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{	
+	int i;
+	char *p;
+	scanf("%d", &i); // 要申请空间的大小
+	p = (char*)malloc(i); //申请堆空间
+	strcpy(p, "malloc success");
+	puts(p); // 打印 p
+	free(p); // malloc不free，就会内存泄漏
+    p=NULL; //free以后不赋值位NULL，拿着指针去访问对应空间，称为野指针
+    // free以后，该空间会被别的变量使用。如果不赋值为NULL，野指针会指向别的变量
+    system("pause");
 }
 ```
 
