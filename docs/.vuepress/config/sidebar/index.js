@@ -3,7 +3,7 @@ const interview = require('./interview/index')
 const micro = require('./micro/index')
 const java = require('./java/index')
 const base = require('./front/index')
-
+const data = require('./data/index')
 
 module.exports = {
     "/md/c/": [
@@ -47,6 +47,7 @@ module.exports = {
             ]
         }
     ],
+    "/md/data/": data,
     "/md/interview/": interview,
     "/md/micro/": micro,
     "/md/front/base/": base,

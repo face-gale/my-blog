@@ -8,7 +8,7 @@ const utils = {
    * @param {展开状态: 默认true} collapsable 
    * @param {标题深度: 默认1最大2禁用0} sidebarDepth 
    */
-  genSidebar: function (titles, children, collapsable = true, sidebarDepth = 1) {
+  genSidebar: function (titles, children, collapsable = true, sidebarDepth = 3) {
     const sidebarArray = []
     titles.forEach((el, index) => {
       const option = {
