@@ -4,8 +4,12 @@ const micro = require('./micro/index')
 const java = require('./java/index')
 const base = require('./front/index')
 const data = require('./data/index')
+const auth2 = require('./auth2/index')
+const subject = require('./subject/index')
 
 module.exports = {
+    "/md/subject/": subject,
+    "/md/spring-security-oauth2/": auth2,
     "/md/c/": [
         {
             title: 'C 语言',

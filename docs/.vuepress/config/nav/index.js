@@ -9,6 +9,7 @@ module.exports = [
             {text: 'java 知识点', link: '/md/api/'},
             {text: '框架', link: '/md/frame/'},
             {text: '微服务', link: '/md/micro/'},
+            {text: '专题', link: '/md/subject/'},
         ]
     },
     {
