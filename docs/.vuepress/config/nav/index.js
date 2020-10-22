@@ -10,6 +10,7 @@ module.exports = [
             {text: '框架', link: '/md/frame/'},
             {text: '微服务', link: '/md/micro/'},
             {text: '专题', link: '/md/subject/'},
+            {text: '书籍', link: '/md/book/effictive-java/static-vs-construc'},
         ]
     },
     {
