@@ -5,7 +5,8 @@ module.exports = {
     title: "路口小风",
     description: '欢迎进来',
     head: [
-        ['link', { rel: 'icon', href: `/favicon.ico`}]
+        ['link', { rel: 'icon', href: `/favicon.ico`}],
+        ['meta', { name: 'referrer', content: 'no-referrer' }]
     ],
     // plugins,
     themeConfig: {

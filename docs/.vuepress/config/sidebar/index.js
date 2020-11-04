@@ -7,6 +7,7 @@ const data = require('./data/index')
 const auth2 = require('./auth2/index')
 const subject = require('./subject/index')
 const book = require('./book/effictive-java/index')
+const trace = require('./trace/index')
 
 module.exports = {
     "/md/book/": book,
@@ -57,20 +58,7 @@ module.exports = {
     "/md/interview/": interview,
     "/md/micro/": micro,
     "/md/front/base/": base,
-    "/md/trace/": [
-        {
-            title: '随笔',
-            collapsable: true,
-            sidebarDepth: 3,
-            children: [
-                ['2020-07-08','2020-07-08'],
-                ['2020-07-07','2020-07-07'],
-                ['2020-07-06','2020-07-06'],
-                ['2020-07-02','2020-07-02'],
-                ['2020-06-23','2020-06-23'],
-            ]
-        }
-    ],
+    "/md/trace/": trace,
     "/md/java/": java,
     "/class/": [
         {

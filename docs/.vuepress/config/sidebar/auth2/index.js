@@ -30,10 +30,10 @@ const childrenData = [
         ['08.基于JDBC存储令牌', '基于JDBC存储令牌'],
         ['09.RBAC基于角色的访问控制', 'RBAC基于角色的访问控制'],
         ['10.基于RBAC的自定义认证', '基于RBAC的自定义认证'],
-        ['11.There is no PasswordEncodermapped', 'There is no PasswordEncodermapped'],
+        // ['11.There is no PasswordEncodermapped', 'There is no PasswordEncodermapped'],
     ],
     [
-        ['12.对认证服务器的修改', '对认证服务器的修改'],
+        // ['12.对认证服务器的修改', '对认证服务器的修改'],
         ['13.创建资源服务器', '创建资源服务器'],
     ],
 ]
