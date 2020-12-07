@@ -6,11 +6,11 @@ date: 2019年11月4日15:52:51
 ## 概述
 Kubernetes Dashboard 是 Kubernetes 集群的 Web UI，用于管理集群。
 ## 安装
-GitHub 地址：Kubernetes Dashboard
+GitHub 地址：[Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
 
 下载配置文件
 ```
-wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta2/aio/deploy/recommended.yaml
+wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
 ```
 修改配置如下
 ```

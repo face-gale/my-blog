@@ -5,7 +5,7 @@ date: 2019年11月4日15:52:51
 
 # Kubernetes 第一个容器
 ## 检查组件运行状态
-```
+```shell
 kubectl get cs
 # 输出如下
 NAME                 STATUS    MESSAGE             ERROR
@@ -16,8 +16,33 @@ controller-manager   Healthy   ok
 # 服务注册与发现
 etcd-0               Healthy   {"health":"true"}  
 ```
-## 检查 Master 状态
+## 报错
+
+```shell
+[root@master k8s]# kubectl get cs
+Warning: v1 ComponentStatus is deprecated in v1.19+
+NAME                 STATUS      MESSAGE                                                                                       ERROR
+scheduler            Unhealthy   Get "http://127.0.0.1:10251/healthz": dial tcp 127.0.0.1:10251: connect: connection refused   
+controller-manager   Unhealthy   Get "http://127.0.0.1:10252/healthz": dial tcp 127.0.0.1:10252: connect: connection refused   
+etcd-0               Healthy     {"health":"true"}   
 ```
+
+## 解决方法：修改master节点配置文件
+
+```shell
+vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+vim /etc/kubernetes/manifests/kube-scheduler.yaml
+# 注释掉port=0这一行
+
+# 所有节点重启kubelet
+systemctl restart kubelet.service
+```
+
+
+
+## 检查 Master 状态
+
+```shell
 kubectl cluster-info
 # 输出如下
 Kubernetes master is running at https://192.168.141.110:6443
@@ -26,7 +51,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
 ## 检查 Nodes 状态
-```
+```shell
 kubectl get nodes
 # 输出如下
 NAME                 STATUS   ROLES    AGE   VERSION
@@ -36,7 +61,7 @@ kubernetes-node-02   Ready    <none>   51m   v1.15.0
 ```
 
 ## 运行第一个容器实例
-```
+```shell
 # 使用 kubectl 命令创建两个监听 80 端口的 Nginx Pod（Kubernetes 运行容器的最小单元）
 kubectl run nginx --image=nginx --replicas=2 --port=80
 # 输出如下
@@ -45,7 +70,7 @@ deployment.apps/nginx created
 ```
 
 ## 查看全部 Pods 的状态
-```
+```shell
 kubectl get pods
 # 输出如下
 NAME                     READY   STATUS    RESTARTS   AGE
@@ -54,21 +79,33 @@ nginx-7c45b84548-vp2x6   1/1     Running   0          36s
 ```
 
 ## 查看已部署的服务
-```
+```shell
 kubectl get deployment
 # 输出如下
 NAME    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx   2/2     2            2           70s
 ```
 ## 发布服务
-```
+```shell
 # 部署服务是在内网，外部访问需要expose出来。使用负载均衡模式发布服务，让用户可以访问
 kubectl expose deployment nginx --port=80 --type=LoadBalancer
 # 输出如下
 service/nginx exposed
 ```
-## 查看已发布的服务
+## 解决k8s 1.18.0版本 replicas被弃用问题
+
+执行命令 `kubectl run nginx --image=nginx --replicas=2 --port=80` 会反馈
+
+```shell
+Flag --replicas has been deprecated, has no effect and will be removed in the future.
 ```
+
+并且只创建一个nginx 容器实例
+在K8S v1.18.0 以后，`--replicas`已弃用 ,推荐用 `deployment` 创建 pods，请看下一章
+
+## 查看已发布的服务
+
+```shell
 kubectl get services
 # 输出如下
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
@@ -77,7 +114,7 @@ nginx        LoadBalancer   10.96.182.202   <pending>     80:30899/TCP   99s
 ```
 
 ## 查看服务详情
-```
+```shell
 kubectl describe service nginx
 # 输出如下
 Name:                     nginx
@@ -98,24 +135,24 @@ Events:                   <none>
 ```
 ## 验证是否成功
 通过浏览器访问 Node 服务器，此时 Kubernetes 会以负载均衡的方式访问部署的 Nginx 服务，能够正常看到 Nginx 的欢迎页即表示成功
-```
+```shell
 http://192.168.27.120:30899/
 ```
 
 ## 进入nginx容器
 node1运行`docker ps -a`输出：
-```
+```shell
 CONTAINER ID        IMAGE                                                COMMAND                  CREATED             STATUS                    PORTS               NAMES
 1b579145053c        nginx                                                "nginx -g 'daemon of…"   10 minutes ago      Up 10 minutes                                 k8s_nginx_nginx-5578584966-7kd5r_default_875968d6-a8a9-415e-a501-b7d23dd838e3_0
 af86afb2176b        registry.aliyuncs.com/google_containers/pause:3.1    "/pause"                 11 minutes ago      Up 10 minutes                                 k8s_POD_nginx-5578584966-7kd5r_default_875968d6-a8a9-415e-a501-b7d23dd838e3_0
 c0a8eabbdf52        registry.aliyuncs.com/google_containers/coredns      "/coredns -conf /etc…"   2 hours ago         Up 2 hours                                    k8s_coredns_coredns-58cc8c89f4-psgjq_kube-system_96
 ```
 进入nginx
-```
+```shell
 docker exec -it 1b579145053c /bin/bash
 ```
 输入`ls -al`查看文件目录，并查找nginx的位置
-```
+```shell
 root@nginx-5578584966-7kd5r:/# whereis nginx
 # 输出
 nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/share/nginx
@@ -124,7 +161,7 @@ nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/share/nginx
 
 > 注意：`》`表示追加
 
-```
+```shell
 echo hello kubernetes > index.html
 ```
 浏览器再次打开120端口：
@@ -136,14 +173,14 @@ echo hello kubernetes > index.html
 最后输入`exit`退出。
 ## 验证高可用
 node1输入`docker ps -a`:
-```
+```shell
 CONTAINER ID        IMAGE                                                COMMAND                  CREATED             STATUS                    PORTS               NAMES
 1b579145053c        nginx                                                "nginx -g 'daemon of…"   28 minutes ago      Up 28 minutes                                 k8s_nginx_nginx-5578584966-7kd5r_default_875968d6-a8a9-415e-a501-b7d23dd838e3_0
 af86afb2176b        registry.aliyuncs.com/google_containers/pause:3.1    "/pause"                 28 minutes ago      Up 28 minutes                                 k8s_POD_nginx-5578584966-7kd5r_default_875968d6-a8a9-415e-a501-b7d23dd838e3_0
 c0a8eabbdf52        registry.aliyuncs.com/google_containers/coredns      "/coredns -conf /etc…"   2 hours ago         Up 2 hours                                    k8s_coredns_coredns-58cc8c89f4-psgjq_kube-system_962a36dd-2a59-475b-b682-50383406dbcc_0
 ```
 删除容器
-```
+```shell
 docker rm -f 1b579145053c
 ```
 再次运行`docker ps -a`发现nginx下线，一段时间后nginx又上线了，说明kubernetes实现了高可用。
@@ -153,13 +190,13 @@ docker rm -f 1b579145053c
 ## 停止服务
 停止服务在master节点操作。
 - 删除已部署的服务
-```
+```shell
 kubectl delete deployment nginx
 # 输出如下
 deployment.extensions "nginx" deleted
 ```
 - 删除已发布的服务
-```
+```shell
 kubectl delete service nginx
 # 输出如下
 service "nginx" deleted

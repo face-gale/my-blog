@@ -28,12 +28,15 @@ data:
     explicit_defaults_for_timestamp=true
     lower_case_table_names=1
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-myshop
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-myshop
   template:
     metadata:
       labels:

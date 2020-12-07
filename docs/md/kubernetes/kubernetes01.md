@@ -140,11 +140,12 @@ preserve_hostname: true
 ```
 network:
     ethernets:
-        ens33:
-          addresses: [192.168.27.110/24]
-          gateway4: 192.168.27.2
+        ens32:
+          dhcp6: false
+          addresses: [192.168.71.110/24]
+          gateway4: 192.168.71.2
           nameservers:
-            addresses: [192.168.27.2]
+            addresses: [192.168.71.2]
     version: 2
 ```
 使用 netplan apply 命令让配置生效
@@ -155,7 +156,7 @@ network:
 hostnamectl set-hostname kubernetes-master
 # 配置 hosts
 cat >> /etc/hosts << EOF
-192.168.27.110 kubernetes-master
+192.168.71.110 kubernetes-master
 EOF
 ```
 ```
@@ -163,7 +164,7 @@ EOF
 hostnamectl set-hostname kubernetes-node-01
 # 配置 hosts
 cat >> /etc/hosts << EOF
-192.168.27.120 kubernetes-node-01
+192.168.71.120 kubernetes-node-01
 EOF
 ```
 
@@ -172,6 +173,6 @@ EOF
 hostnamectl set-hostname kubernetes-node-02
 # 配置 hosts
 cat >> /etc/hosts << EOF
-192.168.27.121 kubernetes-node-02
+192.168.71.121 kubernetes-node-02
 EOF
 ```

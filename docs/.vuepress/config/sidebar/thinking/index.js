@@ -9,13 +9,13 @@
 const utils = require('../../utils/index')
 
 const titles = [
-    '专题',
+    '编程方法论',
 ]
 const childrenData = [
     [
-        ['', 'Spring Security oAuth2'],
-        ['subject01', '编程思想'],
-    ],
+        ['01.禅道简介', '禅道简介'],
+        ['02.安装禅道', '安装禅道'],
+    ]
 ]
 
 /**

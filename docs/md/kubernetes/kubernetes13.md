@@ -127,12 +127,15 @@ kubectl get pvc
 > 注意： 要确保每台 Node 都安装了 NFS 客户端，apt-get install -y nfs-common
 
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-myshop
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-myshop
   template:
     metadata:
       labels:

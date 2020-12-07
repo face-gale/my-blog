@@ -8,11 +8,13 @@ const auth2 = require('./auth2/index')
 const subject = require('./subject/index')
 const book = require('./book/effictive-java/index')
 const trace = require('./trace/index')
+const thinking = require('./thinking/index')
 
 module.exports = {
     "/md/book/": book,
     "/md/subject/": subject,
     "/md/spring-security-oauth2/": auth2,
+    "/md/programming-thinking/": thinking,
     "/md/c/": [
         {
             title: 'C 语言',

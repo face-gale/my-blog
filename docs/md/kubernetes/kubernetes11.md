@@ -14,9 +14,29 @@ Ingress Controller 有许多种，我们选择最熟悉的 Nginx 来处理请求
 - 下载 Nginx Ingress Controller 配置文件
 
 ```
-wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+mkdir ingress
+ 
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+ 
+# 上面可能无法下载：所以用国内的 gitee
+
+wget https://gitee.com/mirrors/ingress-nginx/raw/nginx-0.30.0/deploy/static/mandatory.yaml
 ```
+
+
+
 修改配置文件，找到配置如下位置 (搜索 serviceAccountName) 在下面增加一句 hostNetwork: true
+
+更换阿里镜像 
+
+`registry.aliyuncs.com/google_containers/nginx-ingress-controller:0.30.0`
+
+或
+
+`registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:0.30.0`
+
+把文件中所有的 **v1beta1** 修改为 **v1** ，因为 v1beta1 在 V1.17 之后就不推荐使用了，在V1.22之后将不可用
+
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -48,7 +68,7 @@ spec:
       containers:
         - name: nginx-ingress-controller
           # 使用 Azure 中国镜像
-          image: quay.azk8s.cn/kubernetes-ingress-controller/nginx-ingress-controller:0.24.1
+          image: quay.azk8s.cn/kubernetes-ingress-controller/nginx-ingress-controller:0.25.0
           args:
             - /nginx-ingress-controller
             - --configmap=$(POD_NAMESPACE)/nginx-configuration
@@ -63,7 +83,7 @@ spec:
 ## 部署 Ingress
 - 创建一个名为 ingress.yml 的资源配置文件
 ```
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-web
@@ -86,15 +106,20 @@ spec:
   # 路由规则
   rules:
   # 主机名，只能是域名，修改为你自己的
-  - host: k8s.funtl.com
+  - host: k8s.aodiv.com
     http:
       paths:
-      - path:
+      - pathType: Prefix
+        path: /
         backend:
+          service:
+            name: tomcat-http
+            port:
+              number: 8080
           # 后台部署的 Service Name
-          serviceName: tomcat-http
+          # serviceName: tomcat-http
           # 后台部署的 Service Port
-          servicePort: 8080
+          # servicePort: 8080
 ```
 - 通过命令 kubectl apply -f ingress.yml 部署
 - 通过命令 kubectl get ingress 查看
@@ -102,12 +127,15 @@ spec:
 ## 部署 Tomcat
 部署 Tomcat 但仅允许在内网访问，我们要通过 Ingress 提供的反向代理功能路由到 Tomcat 之上，创建一个名为 tomcat.yml 资源配置文件
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tomcat-app
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      name: tomcat
   template:
     metadata:
       labels:

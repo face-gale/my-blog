@@ -18,7 +18,7 @@ kubeadm config print init-defaults --kubeconfig ClusterConfiguration > kubeadm.y
 4. 确认版本正确，否则可能阻塞。
 :::
 尤其注意在修改时不能多加空格或者tab，因为yml的格式是很严格的，多了就会产生错误。
-```
+```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 bootstrapTokens:
 - groups:
@@ -59,6 +59,7 @@ kubernetesVersion: v1.16.0
 networking:
   dnsDomain: cluster.local
   # 配置 POD 所在网段为我们虚拟机不重叠的网段（这里用的是 Flannel 默认网段）
+  # pod 用于运行容器，可以运行一组容器，运行容器的最小单元
   podSubnet: "10.244.0.0/16"
   serviceSubnet: 10.96.0.0/12
 scheduler: {}
